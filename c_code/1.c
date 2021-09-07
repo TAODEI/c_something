@@ -1,4 +1,5 @@
 #include <stdio.h>
+
 void main() {
     int i, j;
     int n = 0;
@@ -11,8 +12,9 @@ void main() {
                     putchar('\n');
                 j++;
             }
-            if (i % j == 0)
+            if (i % j == 0) {
                 break;
+            }
             if (i % j != 0)
                 continue;
         }
