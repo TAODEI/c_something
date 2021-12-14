@@ -1,6 +1,20 @@
 #include <iostream>
-// #include <math.h>
+#include <queue>
 using namespace std;
+
+int main() {
+    queue<int> q;
+    q.push(1);
+    q.push(2);
+    q.push(3);
+    cout << q.front() << " ";
+    q.pop();
+    cout << q.front() << endl;
+}
+
+
+
+
 #include <stdio.h>
 class AA {
     int n;
@@ -26,9 +40,7 @@ class test {
         cout << 1;
     }
 };
-int main() {
 
-    test a, b[2], *p[2];
     // int i = 1;
     // // int a = 0;
     // // i += i++;
@@ -36,7 +48,7 @@ int main() {
 
     // // cout << i << endl;cout << a << endl;
     // printf("%d\n", i);
-}
+
 
 struct Node {
     int Data;
