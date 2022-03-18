@@ -44,6 +44,7 @@ class StuTeah : public Student, public Teacher {
         : Person(name, idNumber, date, sex),
           Student(name, studentID, grade, idNumber, date, sex),
           Teacher(name, jobTitle, idNumber, date, sex) {}
+          
     string GetName() {
         return name;
     }
