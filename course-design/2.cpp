@@ -60,7 +60,7 @@ class Set {
             for (int i = 0; i < len; i++) {
                 tmp[i] = val[i];
             }
-            delete []val;
+            delete[] val;
             val = tmp;
         }
 
@@ -83,14 +83,14 @@ class Set {
                 tmp += val[i];
             }
         }
-        delete []val;
+        delete[] val;
         val = tmp.val;
 
         return *this;
     }
     Set operator-=(const Set &s) {
         Set tmp(size);
-        
+
         for (int i = 0; i < len; i++) {
             if (!s.isBelong(val[i])) {
                 tmp += val[i];
@@ -130,18 +130,25 @@ int main() {
     s2 += 7;
     s2 += 1;
 
-    cout << "s1 "; s1.Print();
-    cout << "s2 "; s2.Print();
+    cout << "s1 ";
+    s1.Print();
+    cout << "s2 ";
+    s2.Print();
     auto t1 = s1 | s2;
     auto t2 = s1 & s2;
     auto t3 = s1 - s2;
 
-    cout << "|  "; t1.Print();
-    cout << "&  "; t2.Print();
-    cout << "-  "; t3.Print();
+    cout << "|  ";
+    t1.Print();
+    cout << "&  ";
+    t2.Print();
+    cout << "-  ";
+    t3.Print();
 
     s1 += s2;
-    cout << "+= "; s1.Print();
+    cout << "+= ";
+    s1.Print();
     s1 -= s2;
-    cout << "-= "; s1.Print();
+    cout << "-= ";
+    s1.Print();
 }

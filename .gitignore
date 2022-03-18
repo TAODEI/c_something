@@ -6,3 +6,7 @@ nohup.out
 /bin/
 
 workspace.code-workspace
+/cmake-build-debug/
+/.vscode/
+/.idea/
+CMakeLists.txt
