@@ -18,9 +18,6 @@ using namespace std;
 
 int main(void) {
     int d;
-    FILE *p = fopen("123", "r");
-    fscanf(p, "%d", &d);
-
     cout << d << endl;
 	// Node *root = new Node(100);
     // root->right = new Node(50);

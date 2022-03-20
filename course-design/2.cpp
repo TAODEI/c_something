@@ -1,12 +1,14 @@
 #include <iostream>
+
 using namespace std;
 
 class Set {
     int *val;
     int size;
 
-  public:
+public:
     int len;
+
     Set(int size) : size(size) {
         len = 0;
         val = new int[size];
@@ -21,6 +23,7 @@ class Set {
 
         return true;
     }
+
     Set operator|(const Set &s) const {
 
         Set tmp(size + s.size);
@@ -30,6 +33,7 @@ class Set {
 
         return tmp;
     }
+
     Set operator&(const Set &s) const {
         Set tmp(size);
 
@@ -40,6 +44,7 @@ class Set {
         }
         return tmp;
     }
+
     Set operator-(const Set &s) const {
         Set tmp(size);
 
@@ -50,6 +55,7 @@ class Set {
         }
         return tmp;
     }
+
     Set operator+=(int ele) {
         if (isBelong(ele)) {
             return *this;
@@ -68,6 +74,7 @@ class Set {
         len++;
         return *this;
     }
+
     Set operator+=(const Set &s) {
         for (int i = 0; i < s.len; i++) {
             *this += s.val[i];
@@ -75,6 +82,7 @@ class Set {
 
         return *this;
     }
+
     Set operator-=(int ele) {
         Set tmp(size);
         for (int i = 0; i < len; i++) {
@@ -88,6 +96,7 @@ class Set {
 
         return *this;
     }
+
     Set operator-=(const Set &s) {
         Set tmp(size);
 
@@ -118,6 +127,7 @@ class Set {
         cout << endl;
     }
 };
+
 int main() {
     Set s1(20), s2(10);
     s1 += 1;
