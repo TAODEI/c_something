@@ -1,101 +1,87 @@
+//
+// Created by TAODEI on 2022/3/23.
+//
+
 #include <iostream>
+#include <iterator>
+
 using namespace std;
 
-struct Node {
-    int data;
-    Node *left, *right;
-    Node(int data) : data(data) {
-        left = nullptr;
-        right = nullptr;
-    }
-};
-
-class Tree {
-    Node *root;
-    int count;
-    bool preOrder(Node* root, int ele) {
-        if (ele == -1) {
-            cout << root->data << " ";
-            count++;
-        }
-        if (ele > root->data) {
-            return false;
-        }
-        if (ele == root->data) {
-            adjust(&root);
-            return true;
-        }
-
-        if (root->left) {
-            if (preOrder(root->left, ele)) {
-                return true;
-            }
-        }
-        if (root->right) {
-            if (preOrder(root->right, ele)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-  public:
-    void Init() {
-        count = 0;
-        root = new Node(100);
-        root->left = new Node(50);
-        root->right = new Node(15);
-        root->left->left = new Node(25);
-        root->left->right = new Node(5);
-        root->right->left = new Node(1);
-        root->right->right = new Node(2);
-        root->right->right->right = new Node(0);
-    }
-//           100
-//      50          15
-//   25    5      1    2
-//                      0
-    void adjust(Node **root) {
-        if (!(*root)->left) {
-            *root = (*root)->right;
-            return;
-        }
-        if (!(*root)->right) {
-            *root = (*root)->left;
-            return;
-        }
-
-        if ((*root)->left->data > (*root)->right->data) {
-            (*root)->data = (*root)->left->data;
-            adjust(&(*root)->left);
-        } else {
-            (*root)->data = (*root)->right->data;
-            adjust(&(*root)->right);
-        }
-    }
-
-    bool DeleteEle(int ele) {
-        return preOrder(root, ele);
+class Heap {
+    int data[100];
+    int len;
+public:
+    Heap() {
+        int tmp[] = {100, 50, 15, 25, 5, 1, 2, 16};
+        copy(begin(tmp), end(tmp), begin(data));
+        len = 8;
     }
 
     void Print() {
-        preOrder(root, -1);
-        cout << endl << count << endl;
-        count = 0;
+        for (int i = 0; i < len; i++) {
+            cout << data[i] << " ";
+        }
+        cout << endl;
     }
+
+    bool DeleteEle(int index) {
+        if (index >= len) {
+            return false;
+        }
+
+        data[index] = data[len - 1];
+        len--;
+        int root = (index - 1) / 2;
+        if (data[root] < data[index]) {
+            toUp(root, index);
+        } else {
+            toDown(index);
+        }
+        return true;
+    }
+
+    void toUp(int root, int child) {
+        if (data[root] >= data[child]) {
+            return;
+        }
+        data[root] ^= data[child] ^= data[root] ^= data[child];
+        if (root == 0) {
+            return;
+        }
+        toUp((child - 1) / 2, child);
+    }
+
+    void toDown(int root) {
+        int child = (root + 1) * 2;
+        if (child > len) {
+            return;
+        }
+        if (child == len) {
+            if (data[child-1] > data[root]) {
+                data[root] ^= data[child-1] ^= data[root] ^= data[child-1];
+            }
+            return;
+        }
+        int max = data[child - 1] > data[child] ? child - 1: child;
+        data[root] ^= data[max] ^= data[root] ^= data[max];
+
+        toDown(max);
+    }
+
 };
 
-
-
+//           100
+//      50          15
+//   25    5      1    2
+//  16
 int main() {
-    Tree t;
-    t.Init();
-    t.Print();
-    bool ok = t.DeleteEle(15);
+    Heap h = Heap();
+    h.Print();
+    bool ok = h.DeleteEle(0);
     if (ok) {
         cout << endl;
-        t.Print();
+        h.Print();
     } else {
-        cout << "cant find" << endl;
+        cout << "not found" << endl;
     }
 }
