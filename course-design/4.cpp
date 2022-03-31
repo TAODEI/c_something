@@ -14,18 +14,18 @@ public:
 
     Student() {}
 
-    void In(string fileName) {
-        fstream file;
-        file.open(fileName, ios::out | ios::in);
-        file << id << " " << name << " " << grade << endl;
-        file.close();
+    void Out(string fileName) {
+        ofstream outFile;
+        outFile.open(fileName, ios::app);
+        outFile << id << " " << name << " " << grade << endl;
+        outFile.close();
     }
 
-    void Out(string fileName, int index) {
+    void In(string fileName, int index) {
         fstream file;
         file.open(fileName, ios::out | ios::in);
 
-        for (int i = 0; ; i++) {
+        for (int i = 0;; i++) {
             string _id, _name;
             int _grade;
             file >> _id >> _name >> _grade;
@@ -45,18 +45,11 @@ public:
         file.close();
     }
 
+    void insertMap(map<string, Student> &Map) {
+        Map[id] = *this;
+    }
+
     void Print() {
         cout << id << " " << name << " " << grade << endl;
     }
 };
-
-int main() {
-    Student s1 = Student("2020213675", "TAODEI", 100);
-//    s1.In("student.dat");
-//    s1.In("student.dat");
-
-    Student s2;
-    s2.Out("student.dat", 0);
-
-    s2.Print();
-}
